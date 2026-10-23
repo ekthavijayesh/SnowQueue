@@ -527,3 +527,27 @@ main {
         gap: 12px;
     }
 }
+
+
+/* SnowQueue Footer */
+.site-footer {
+    width: 100%;
+    padding: 22px 16px;
+    margin-top: 40px;
+    text-align: center;
+    border-top: 1px solid #dce5dc;
+    background: #f7f5ef;
+    box-sizing: border-box;
+}
+
+.site-footer p {
+    margin: 0;
+    color: #52665b;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+}
+
+.site-footer span {
+    color: #254a3d;
+    font-weight: 700;
+}
