@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f6f0">
+    <title>QueueWise | Park Intelligence</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="#overview">
+                <span class="brand-icon">Q</span>
+                <span>QueueWise<small>PARK INTELLIGENCE</small></span>
+            </a>
+
+            <p class="nav-label">WORKSPACE</p>
+            <a class="nav-link active" href="#overview">◫ &nbsp; Overview</a>
+            <a class="nav-link" href="#predict">⌁ &nbsp; Wait prediction</a>
+            <a class="nav-link" href="#analytics">▥ &nbsp; Ride analytics</a>
+
+            <div class="sidebar-bottom">
+                <div class="status-dot"></div>
+                <div><strong>Model connected</strong><small>Local prediction engine</small></div>
+            </div>
+        </aside>
+
+        <main class="main-content" id="overview">
+            <header class="topbar">
+                <div>
+                    <span class="breadcrumb">WORKSPACE / OVERVIEW</span>
+                    <p class="topbar-title">Park intelligence dashboard</p>
+                </div>
+                <div class="profile-chip"><span>Q</span> QueueWise</div>
+            </header>
+
+            <section class="hero">
+                <div class="hero-copy">
+                    <span class="pill">✦ &nbsp; SMART PARK ANALYTICS</span>
+                    <h1>Make every<br>minute count.</h1>
+                    <p>
+                        Understand ride queues, explore park patterns, and
+                        estimate waiting times with your machine-learning model.
+                    </p>
+                    <a href="#predict" class="primary-link">Estimate a wait <span>↗</span></a>
+                </div>
+                <div class="hero-art" aria-hidden="true">
+                    <div class="orbit orbit-one"></div>
+                    <div class="orbit orbit-two"></div>
+                    <div class="sun"></div>
+                    <div class="art-hill hill-back"></div>
+                    <div class="art-hill hill-front"></div>
+                    <div class="wheel">
+                        <div class="wheel-center"></div>
+                        <i></i><i></i><i></i><i></i><i></i><i></i>
+                    </div>
+                    <span class="art-caption">A better view of the wait.</span>
+                </div>
+            </section>
+
+            <section class="metrics-grid">
+                <article class="metric-card">
+                    <span class="metric-icon">✳</span>
+                    <p>Rides represented</p>
+                    <strong>{{ summary.ride_count }}</strong>
+                    <small>Unique ride categories</small>
+                </article>
+                <article class="metric-card">
+                    <span class="metric-icon">◷</span>
+                    <p>Average simulated wait</p>
+                    <strong>{{ summary.average_wait }} <em>min</em></strong>
+                    <small>Across all dataset records</small>
+                </article>
+                <article class="metric-card">
+                    <span class="metric-icon">▤</span>
+                    <p>Dataset observations</p>
+                    <strong>{{ "{:,}".format(summary.record_count) }}</strong>
+                    <small>Records available for analysis</small>
+                </article>
+            </section>
+
+            <section class="content-grid" id="analytics">
+                <article class="panel chart-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <span class="eyebrow">DATA EXPLORER</span>
+                            <h2>Average wait by ride</h2>
+                            <p>Compare simulated waiting times across rides.</p>
+                        </div>
+                        <span class="panel-badge">Dataset</span>
+                    </div>
+                    <div id="ride-chart" class="bar-chart">
+                        {% for ride in summary.rides %}
+                        <div class="bar-row">
+                            <span class="bar-name" title="{{ ride.name }}">{{ ride.name }}</span>
+                            <div class="bar-track">
+                                <div class="bar-fill" data-wait="{{ ride.wait }}"></div>
+                            </div>
+                            <strong>{{ ride.wait }}m</strong>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </article>
+
+                <article class="panel insight-panel">
+                    <span class="eyebrow">PARK INSIGHT</span>
+                    <h2>Explore what<br>drives the wait.</h2>
+                    <p>
+                        Queue length, ride capacity, weather, attendance, and
+                        time of day are among the inputs you can explore.
+                    </p>
+                    <div class="insight-illustration">
+                        <span>QUEUE</span><span>→</span><span>INSIGHT</span>
+                    </div>
+                    <a href="#predict" class="text-link">Open prediction form →</a>
+                </article>
+            </section>
+
+            <section class="prediction-section" id="predict">
+                <div class="section-intro">
+                    <span class="eyebrow">PREDICTIVE INTELLIGENCE</span>
+                    <h2>Estimate your next wait.</h2>
+                    <p>Enter the ride and park conditions to generate an estimate.</p>
+                </div>
+
+                <div class="prediction-layout">
+                    <form id="prediction-form" class="panel prediction-form">
+                        <h3>Ride conditions</h3>
+                        <p class="form-description">All fields are required.</p>
+
+                        <div class="form-grid">
+                            <label>Ride
+                                <select name="ride_name" required>
+                                    {% for ride in rides %}
+                                    <option value="{{ ride }}">{{ ride }}</option>
+                                    {% endfor %}
+                                </select>
+                            </label>
+
+                            <label>Time of day
+                                <select name="hour" required>
+                                    {% for hour in range(9, 23) %}
+                                    <option value="{{ hour }}" {% if hour == 14 %}selected{% endif %}>
+                                        {{ "%02d:00"|format(hour) }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </label>
+
+                            <label>Day type
+                                <select name="day_type" required>
+                                    <option>Weekday</option>
+                                    <option>Weekend</option>
+                                </select>
+                            </label>
+
+                            <label>Weather
+                                <select name="weather" required>
+                                    <option>Sunny</option>
+                                    <option>Cloudy</option>
+                                    <option>Rainy</option>
+                                </select>
+                            </label>
+
+                            <label>People in queue
+                                <input type="number" name="queue_length" min="0" max="1000" value="50" required>
+                            </label>
+
+                            <label>Ride capacity (people)
+                                <select name="ride_capacity" required>
+                                    <option>12</option><option>16</option>
+                                    <option selected>20</option><option>24</option>
+                                    <option>30</option><option>36</option>
+                                </select>
+                            </label>
+
+                            <label>Ride cycle (minutes)
+                                <input type="number" name="ride_cycle_minutes" min="2" max="8" step="0.5" value="4" required>
+                            </label>
+
+                            <label>Park attendance
+                                <input type="number" name="park_attendance" min="0" max="100000" step="100" value="5000" required>
+                            </label>
+
+                            <label class="full-width">Temperature (°C)
+                                <input type="number" name="temperature_c" min="10" max="45" step="0.5" value="28" required>
+                            </label>
+                        </div>
+
+                        <button class="submit-button" id="predict-button" type="submit">
+                            Calculate estimated wait <span>↗</span>
+                        </button>
+                        <p id="form-error" class="error-message" role="alert"></p>
+                    </form>
+
+                    <aside class="result-column">
+                        <div class="result-card" aria-live="polite">
+                            <span class="result-symbol">◷</span>
+                            <p class="result-overline">YOUR ESTIMATED WAIT</p>
+                            <div class="result-number" id="wait-result">--<span>min</span></div>
+                            <span class="result-category" id="wait-category">Awaiting prediction</span>
+                            <div class="result-divider"></div>
+                            <p class="result-ride" id="result-ride">Submit the form to see your result.</p>
+                            <p class="result-time" id="result-time"></p>
+                        </div>
+
+                        <div class="notice-card">
+                            <span>ⓘ</span>
+                            <div>
+                                <strong>Educational prototype</strong>
+                                <p>
+                                    This model uses synthetic data. Predictions
+                                    are not validated real-world forecasts or live queue readings.
+                                </p>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+            <footer>
+                <span><strong>QueueWise</strong> · Park Intelligence</span>
+                <span>Built for learning, designed for insight.</span>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        window.QUEUEWISE_RIDES = {{ rides | tojson }};
+    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

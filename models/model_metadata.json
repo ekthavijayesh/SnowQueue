@@ -1,0 +1,26 @@
+{
+    "best_model": "Extra Trees",
+    "target": "wait_time_minutes",
+    "features": [
+        "ride_name",
+        "hour",
+        "day_type",
+        "weather",
+        "queue_length",
+        "ride_capacity",
+        "ride_cycle_minutes",
+        "park_attendance",
+        "temperature_c",
+        "is_peak_hour"
+    ],
+    "training_rows": 4000,
+    "test_rows": 1000,
+    "data_type": "synthetic educational dataset",
+    "selection_metric": "MAE",
+    "test_metrics": {
+        "model": "Extra Trees",
+        "MAE": 6.566,
+        "RMSE": 9.18,
+        "R2": 0.9652
+    }
+}
