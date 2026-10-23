@@ -1,5 +1,12 @@
+
 venv/
+.venv/
 __pycache__/
-*.pyc
+*.py[cod]
 .env
 .vscode/
+
+# Backup files
+models/queue_wait_model_backup.joblib
+models/model_metadata_backup.json
+templates/index_backup.html
