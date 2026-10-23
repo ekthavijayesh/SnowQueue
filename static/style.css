@@ -1,29 +1,32 @@
 
 /* =========================================
-   SNOW FANTASY — QUEUEWISE
-   Ice blue, white and winter snowfall
+   SNOWQUEUE — SNOW FANTASY
+   Winter blue • Clean • Responsive
 ========================================= */
 
 :root {
-    --forest: #078acb;
-    --forest-dark: #075985;
-    --sage: #dff5ff;
-    --ivory: #f5fbff;
+    --blue: #078acb;
+    --blue-dark: #075985;
+    --blue-light: #e5f6ff;
+    --ice: #f0faff;
     --white: #ffffff;
     --text: #163449;
     --muted: #648096;
     --border: #d5eaf7;
-    --blue: #078acb;
-    --blue-light: #e5f6ff;
     --shadow: 0 12px 32px rgba(31, 119, 165, 0.09);
+    --radius: 20px;
 }
 
-* {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
 html {
     scroll-behavior: smooth;
+    width: 100%;
+    overflow-x: clip;
 }
 
 body {
@@ -54,6 +57,12 @@ a {
     text-decoration: none;
 }
 
+img,
+svg,
+canvas {
+    max-width: 100%;
+}
+
 h1,
 h2,
 h3,
@@ -64,88 +73,37 @@ p {
 h1,
 h2,
 h3 {
-    color: var(--forest-dark);
+    color: var(--blue-dark);
 }
 
-/* -----------------------------------------
-   GENERAL LAYOUT
------------------------------------------ */
-
+.container,
+.wrapper,
+main,
 .app,
-.dashboard,
-.app-layout,
 .main-content {
+    min-width: 0;
+    max-width: 100%;
+}
+
+/* Navigation */
+
+nav,
+.navbar {
+    width: 100%;
     min-width: 0;
 }
 
-.card,
-.metric-card,
-.stat-card,
-.panel,
-.result-card {
-    background: rgba(255, 255, 255, 0.94);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    box-shadow: var(--shadow);
-    backdrop-filter: blur(10px);
-    transition: box-shadow 0.25s ease, transform 0.25s ease;
+.navbar a,
+nav a {
+    transition: color 0.2s ease;
 }
 
-.card:hover,
-.metric-card:hover,
-.stat-card:hover,
-.panel:hover {
-    box-shadow: 0 16px 36px rgba(31, 119, 165, 0.13);
+.navbar a:hover,
+nav a:hover {
+    color: var(--blue);
 }
 
-button,
-.primary-button,
-button[type="submit"] {
-    border: 1px solid #159bd7;
-    border-radius: 12px;
-    color: #ffffff;
-    background: linear-gradient(135deg, #36bdf5, #087dbd);
-    box-shadow: 0 5px 16px rgba(8, 125, 189, 0.18);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-button:hover,
-.primary-button:hover,
-button[type="submit"]:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(8, 125, 189, 0.27);
-}
-
-/* -----------------------------------------
-   SIDEBAR
------------------------------------------ */
-
-.sidebar {
-    background: linear-gradient(180deg, #ffffff, #edf8ff);
-    border-right: 1px solid var(--border);
-}
-
-.sidebar a,
-.sidebar button {
-    transition: background 0.2s ease, color 0.2s ease;
-}
-
-.sidebar a:hover,
-.sidebar button:hover {
-    background: #dff3ff;
-    color: var(--forest-dark);
-}
-
-.sidebar .active,
-.sidebar a.active {
-    background: linear-gradient(135deg, #dff4ff, #c6ebff);
-    color: var(--forest-dark);
-    border-radius: 12px;
-}
-
-/* -----------------------------------------
-   HERO / WELCOME SECTION
------------------------------------------ */
+/* Hero section */
 
 .hero,
 .hero-section,
@@ -153,7 +111,11 @@ button[type="submit"]:hover {
     position: relative;
     overflow: hidden;
     background:
-        radial-gradient(circle at 90% 10%, rgba(255,255,255,0.9), transparent 32%),
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(255, 255, 255, 0.9),
+            transparent 32%
+        ),
         linear-gradient(120deg, #e1f5ff, #b9e8ff 55%, #f8fdff);
     border: 1px solid #cceafa;
     border-radius: 24px;
@@ -163,7 +125,7 @@ button[type="submit"]:hover {
 .hero h1,
 .hero-section h1,
 .welcome-banner h1 {
-    color: #075985;
+    color: var(--blue-dark);
 }
 
 .hero p,
@@ -172,37 +134,54 @@ button[type="submit"]:hover {
     color: #42677e;
 }
 
-/* -----------------------------------------
-   METRIC CARDS
------------------------------------------ */
+/* Cards and panels */
 
+.card,
 .metric-card,
-.stat-card {
-    background: linear-gradient(145deg, #ffffff, #f0faff);
-    border: 1px solid #d6edf9;
+.stat-card,
+.panel,
+.result-card,
+.prediction-card {
+    min-width: 0;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.25s ease;
+}
+
+.card:hover,
+.metric-card:hover,
+.stat-card:hover,
+.panel:hover {
+    box-shadow: 0 16px 36px rgba(31, 119, 165, 0.13);
 }
 
 .metric-card .value,
 .stat-card .value,
 .metric-value {
-    color: #078acb;
+    color: var(--blue);
     font-weight: 750;
 }
 
-/* -----------------------------------------
-   FORMS
------------------------------------------ */
+/* Forms */
+
+form {
+    min-width: 0;
+}
 
 input,
 select,
 textarea {
+    display: block;
     width: 100%;
+    min-width: 0;
     max-width: 100%;
+    padding: 12px 14px;
     color: var(--text);
-    background: #ffffff;
+    background: var(--white);
     border: 1px solid #cfe4ef;
     border-radius: 11px;
-    padding: 12px 14px;
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -220,36 +199,97 @@ textarea:focus {
 }
 
 label {
+    display: block;
+    margin-bottom: 7px;
     color: #31566d;
     font-weight: 600;
 }
 
-/* -----------------------------------------
-   PREDICTION RESULT
------------------------------------------ */
+.form-row,
+.input-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+/* Buttons */
+
+button,
+.primary-button,
+button[type="submit"],
+.btn {
+    max-width: 100%;
+    padding: 12px 18px;
+    color: var(--white);
+    background: linear-gradient(135deg, #36bdf5, #087dbd);
+    border: 1px solid #159bd7;
+    border-radius: 12px;
+    box-shadow: 0 5px 16px rgba(8, 125, 189, 0.18);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover:not(:disabled),
+.primary-button:hover,
+button[type="submit"]:hover:not(:disabled),
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(8, 125, 189, 0.27);
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid #38aee8;
+    outline-offset: 3px;
+}
+
+/* Prediction result */
 
 .result-card {
     background:
         radial-gradient(circle at 100% 0%, #d9f3ff, transparent 48%),
         linear-gradient(135deg, #ffffff, #effaff);
-    border: 1px solid #c6e8fa;
+    border-color: #c6e8fa;
 }
 
 .result-card h2,
 .result-card h3 {
-    color: #075985;
+    color: var(--blue-dark);
 }
 
 .result-card .value,
 .wait-time,
 .prediction-value {
-    color: #078acb;
+    color: var(--blue);
     font-weight: 800;
 }
 
-/* -----------------------------------------
-   CHARTS AND DATA DISPLAY
------------------------------------------ */
+#result {
+    display: none;
+}
+
+#result.visible {
+    display: block;
+}
+
+#error-message {
+    color: #b42318;
+    background: #fff1f0;
+    border: 1px solid #ffd5d2;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 12px;
+}
+
+#error-message:empty {
+    display: none;
+}
+
+/* Charts and tables */
 
 .chart,
 .chart-container {
@@ -269,7 +309,7 @@ table {
 }
 
 th {
-    color: #075985;
+    color: var(--blue-dark);
     background: #eaf7ff;
     text-align: left;
 }
@@ -284,17 +324,16 @@ tr:hover td {
     background: #f5fbff;
 }
 
-/* -----------------------------------------
-   DECORATIVE SNOWFALL
------------------------------------------ */
+/* Snowfall */
 
+#snow-container,
 .snowfall {
     position: fixed;
     inset: 0;
-    pointer-events: none;
     overflow: hidden;
+    pointer-events: none;
     z-index: 1000;
-    opacity: 0.62;
+    opacity: 0.55;
 }
 
 .snowflake {
@@ -321,10 +360,6 @@ tr:hover td {
     }
 }
 
-/* -----------------------------------------
-   EXTRA SNOWY DECORATION
------------------------------------------ */
-
 .snow-accent {
     color: #25a8e2;
 }
@@ -335,124 +370,36 @@ tr:hover td {
         0 8px 28px rgba(47, 163, 213, 0.13);
 }
 
-/* -----------------------------------------
-   RESPONSIVE DESIGN
------------------------------------------ */
+/* SnowQueue footer */
 
-img,
-svg,
-canvas {
-    max-width: 100%;
-}
-
-@media (max-width: 900px) {
-    .dashboard,
-    .app-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .sidebar {
-        position: relative;
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-    }
-}
-
-@media (max-width: 600px) {
-    body {
-        font-size: 14px;
-    }
-
-    .hero,
-    .hero-section,
-    .welcome-banner {
-        border-radius: 18px;
-    }
-
-    .card,
-    .metric-card,
-    .stat-card,
-    .panel,
-    .result-card {
-        border-radius: 15px;
-    }
-
-    th,
-    td {
-        padding: 9px;
-    }
-
-    .snowfall {
-        opacity: 0.4;
-    }
-}
-
-/* Respect accessibility preferences */
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        scroll-behavior: auto !important;
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-
-    .snowflake {
-        display: none;
-    }
-}
-
-/* =====================================
-   QUEUEWISE RESPONSIVE DESIGN
-   ===================================== */
-
-/* Prevent elements from exceeding their containers */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
-html {
+.site-footer {
     width: 100%;
-    max-width: 100%;
-    overflow-x: clip;
+    padding: 22px 16px;
+    margin-top: 40px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.75);
 }
 
-body {
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    overflow-wrap: anywhere;
+.site-footer p {
+    margin: 6px 0;
+    color: #526b7c;
+    font-size: 14px;
+    letter-spacing: 0.2px;
 }
 
-img,
-video,
-canvas,
-svg {
-    max-width: 100%;
+.site-footer span {
+    color: var(--blue-dark);
+    font-weight: 700;
 }
 
-input,
-select,
-textarea,
-button {
-    max-width: 100%;
-    font: inherit;
+.developer-credit {
+    color: var(--blue) !important;
+    font-style: italic;
 }
 
-/* Make the main page container flexible */
-.container,
-.wrapper,
-.main-container,
-main {
-    min-width: 0;
-    max-width: 100%;
-}
+/* Responsive layout */
 
-/* Tablet and smaller screens */
 @media (max-width: 768px) {
     .container,
     .wrapper,
@@ -462,7 +409,8 @@ main {
         padding-right: 16px;
     }
 
-    .row,
+    .dashboard,
+    .app-layout,
     .dashboard-grid,
     .stats-grid {
         grid-template-columns: minmax(0, 1fr);
@@ -477,24 +425,17 @@ main {
         font-size: 1.35rem;
     }
 
-    input,
-    select,
-    textarea {
-        width: 100%;
-        min-width: 0;
+    .form-row,
+    .input-row {
+        grid-template-columns: minmax(0, 1fr);
     }
 
-    button,
-    .btn {
-        min-height: 44px;
-    }
-
-    table {
-        max-width: 100%;
+    th,
+    td {
+        padding: 9px;
     }
 }
 
-/* Small mobile screens */
 @media (max-width: 480px) {
     body {
         font-size: 15px;
@@ -508,46 +449,39 @@ main {
     }
 
     .card,
+    .metric-card,
     .stat-card,
+    .panel,
+    .result-card,
     .prediction-card {
-        min-width: 0;
-        padding: 16px;
-        border-radius: 14px;
+        border-radius: 15px;
     }
 
-    .btn,
-    button {
-        width: 100%;
+    .hero,
+    .hero-section,
+    .welcome-banner {
+        border-radius: 18px;
     }
 
-    .form-row,
-    .input-row {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
+    .snowfall,
+    #snow-container {
+        opacity: 0.35;
     }
 }
 
+/* Accessibility */
 
-/* SnowQueue Footer */
-.site-footer {
-    width: 100%;
-    padding: 22px 16px;
-    margin-top: 40px;
-    text-align: center;
-    border-top: 1px solid #dce5dc;
-    background: #f7f5ef;
-    box-sizing: border-box;
-}
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 
-.site-footer p {
-    margin: 0;
-    color: #52665b;
-    font-size: 14px;
-    letter-spacing: 0.3px;
-}
-
-.site-footer span {
-    color: #254a3d;
-    font-weight: 700;
+    .snowflake {
+        display: none;
+    }
 }

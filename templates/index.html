@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Snow Fantasy | QueueWise</title>
-    <meta name="description" content="QueueWise estimates amusement ride waiting times at Snow Fantasy, HiLITE Mall, Kozhikode.">
+    <title>SnowQueue | Snow Fantasy</title>
+    <meta name="description" content="SnowQueue is an educational machine learning prototype for estimating amusement ride waiting times at Snow Fantasy, HiLITE Mall, Kozhikode.">
     <meta name="theme-color" content="#102b3f">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
         :root {
             --navy: #102b3f;
@@ -46,17 +46,8 @@
             overflow-x: hidden;
         }
 
-        button,
-        input,
-        select {
+        button, input, select {
             font: inherit;
-        }
-
-        button,
-        a,
-        input,
-        select {
-            -webkit-tap-highlight-color: transparent;
         }
 
         a {
@@ -84,7 +75,7 @@
             top: 0;
             z-index: 100;
             background: rgba(255, 255, 255, 0.94);
-            border-bottom: 1px solid rgba(220, 235, 240, 0.9);
+            border-bottom: 1px solid var(--border);
             backdrop-filter: blur(14px);
         }
 
@@ -100,7 +91,6 @@
             display: flex;
             align-items: center;
             gap: 11px;
-            min-width: 0;
         }
 
         .brand-icon {
@@ -127,25 +117,22 @@
             display: block;
             font-size: 11px;
             color: var(--muted);
-            font-weight: 500;
             margin-top: 2px;
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 30px;
+            gap: 25px;
         }
 
         .nav-links a {
             color: #536b78;
             font-size: 13px;
             font-weight: 700;
-            transition: color 0.2s ease;
         }
 
-        .nav-links a:hover,
-        .nav-links a.active {
+        .nav-links a:hover {
             color: #1683a5;
         }
 
@@ -156,44 +143,15 @@
             color: white !important;
         }
 
-        .nav-cta:hover {
-            background: #214c65;
-        }
-
         /* Hero */
 
         .hero {
             position: relative;
-            isolation: isolate;
             overflow: hidden;
             padding: 78px 0 76px;
             background:
                 radial-gradient(ellipse at 85% 10%, rgba(131, 216, 237, 0.24), transparent 34%),
-                linear-gradient(130deg, #edf9fc 0%, #ffffff 52%, #e8f7fb 100%);
-        }
-
-        .hero::before,
-        .hero::after {
-            content: "";
-            position: absolute;
-            z-index: -1;
-            border: 1px solid rgba(57, 151, 181, 0.12);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .hero::before {
-            width: 460px;
-            height: 460px;
-            top: -250px;
-            right: -100px;
-        }
-
-        .hero::after {
-            width: 330px;
-            height: 330px;
-            bottom: -230px;
-            right: 10%;
+                linear-gradient(130deg, #edf9fc, #ffffff 52%, #e8f7fb);
         }
 
         .hero-grid {
@@ -210,11 +168,11 @@
             padding: 8px 13px;
             border: 1px solid #cde8f0;
             border-radius: 100px;
-            background: rgba(255, 255, 255, 0.75);
+            background: white;
             color: #22718a;
             font-size: 11px;
             font-weight: 800;
-            letter-spacing: 1.3px;
+            letter-spacing: 1.1px;
             text-transform: uppercase;
         }
 
@@ -223,12 +181,9 @@
             height: 7px;
             border-radius: 50%;
             background: #32a886;
-            box-shadow: 0 0 0 4px rgba(50, 168, 134, 0.12);
         }
 
-        h1,
-        h2,
-        h3 {
+        h1, h2, h3 {
             font-family: "Manrope", sans-serif;
             line-height: 1.2;
         }
@@ -272,7 +227,7 @@
             cursor: pointer;
             font-weight: 700;
             font-size: 13px;
-            transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s, background 0.2s;
         }
 
         .button:hover {
@@ -282,7 +237,6 @@
         .button-primary {
             background: var(--navy);
             color: white;
-            box-shadow: 0 8px 20px rgba(16, 43, 63, 0.16);
         }
 
         .button-primary:hover {
@@ -291,7 +245,7 @@
 
         .button-secondary {
             border-color: #d4e6ec;
-            background: rgba(255, 255, 255, 0.8);
+            background: white;
             color: var(--navy);
         }
 
@@ -318,7 +272,7 @@
             aspect-ratio: 1;
             border: 1px solid #cbe8f0;
             border-radius: 50%;
-            background: radial-gradient(circle, #ffffff 0%, #e2f5fa 64%, #d2edf5 100%);
+            background: radial-gradient(circle, white, #e2f5fa 64%, #d2edf5);
             box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.9);
         }
 
@@ -330,21 +284,14 @@
             border-radius: 50%;
         }
 
-        .ice-orbit::before {
-            inset: 25px;
-        }
-
-        .ice-orbit::after {
-            inset: 52px;
-        }
+        .ice-orbit::before { inset: 25px; }
+        .ice-orbit::after { inset: 52px; }
 
         .hero-snowflake {
             position: relative;
             z-index: 1;
             color: #328ca9;
             font-size: 118px;
-            line-height: 1;
-            filter: drop-shadow(0 15px 15px rgba(38, 119, 151, 0.16));
             animation: float 5s ease-in-out infinite;
         }
 
@@ -352,21 +299,14 @@
             position: absolute;
             z-index: 2;
             padding: 14px 17px;
-            border: 1px solid rgba(220, 235, 240, 0.9);
+            border: 1px solid var(--border);
             border-radius: 16px;
-            background: rgba(255, 255, 255, 0.94);
+            background: rgba(255, 255, 255, 0.96);
             box-shadow: var(--shadow);
         }
 
-        .floating-card-top {
-            top: 32px;
-            right: -5px;
-        }
-
-        .floating-card-bottom {
-            bottom: 24px;
-            left: -7px;
-        }
+        .floating-card-top { top: 32px; right: -5px; }
+        .floating-card-bottom { bottom: 24px; left: -7px; }
 
         .floating-label {
             color: #708591;
@@ -396,7 +336,7 @@
         /* Overview */
 
         .overview {
-            padding: 57px 0 27px;
+            padding: 57px 0 45px;
         }
 
         .section-heading {
@@ -494,10 +434,7 @@
             border-bottom: 1px solid #eaf1f4;
         }
 
-        .panel-header h2 {
-            font-size: 23px;
-            letter-spacing: -0.7px;
-        }
+        .panel-header h2 { font-size: 23px; }
 
         .panel-header p {
             margin-top: 8px;
@@ -506,9 +443,7 @@
             line-height: 1.8;
         }
 
-        .panel-body {
-            padding: 27px 29px 30px;
-        }
+        .panel-body { padding: 27px 29px 30px; }
 
         .form-grid {
             display: grid;
@@ -516,13 +451,8 @@
             gap: 20px 17px;
         }
 
-        .form-group {
-            min-width: 0;
-        }
-
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
+        .form-group { min-width: 0; }
+        .form-group.full-width { grid-column: 1 / -1; }
 
         .form-group label {
             display: block;
@@ -532,9 +462,7 @@
             font-weight: 700;
         }
 
-        .required {
-            color: #d14d4d;
-        }
+        .required { color: #d14d4d; }
 
         .form-control {
             width: 100%;
@@ -545,17 +473,11 @@
             background: #fbfdfe;
             color: var(--navy);
             font-size: 13px;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         .form-control:focus {
             border-color: #66b8d0;
-            box-shadow: 0 0 0 3px rgba(102, 184, 208, 0.13);
-        }
-
-        .form-control::placeholder {
-            color: #9aabb4;
+            outline: 3px solid rgba(102, 184, 208, 0.13);
         }
 
         .field-help {
@@ -566,20 +488,9 @@
             line-height: 1.6;
         }
 
-        .form-actions {
-            margin-top: 25px;
-        }
-
-        .form-actions .button {
-            width: 100%;
-            min-height: 52px;
-        }
-
-        .button:disabled {
-            cursor: wait;
-            opacity: 0.65;
-            transform: none;
-        }
+        .form-actions { margin-top: 25px; }
+        .form-actions .button { width: 100%; min-height: 52px; }
+        .button:disabled { cursor: wait; opacity: 0.65; }
 
         .error-message {
             margin-bottom: 18px;
@@ -592,11 +503,9 @@
             overflow-wrap: anywhere;
         }
 
-        .error-message[hidden] {
-            display: none !important;
-        }
+        .error-message[hidden] { display: none !important; }
 
-        /* Results */
+        /* Prediction result */
 
         .result-panel {
             display: none;
@@ -604,13 +513,11 @@
             overflow: hidden;
             border: 1px solid #bfe4d7;
             border-radius: 18px;
-            background: linear-gradient(145deg, #f3fcf8, #ffffff);
+            background: linear-gradient(145deg, #f3fcf8, white);
             animation: appear 0.35s ease both;
         }
 
-        .result-panel.visible {
-            display: block;
-        }
+        .result-panel.visible { display: block; }
 
         @keyframes appear {
             from { opacity: 0; transform: translateY(8px); }
@@ -637,8 +544,6 @@
             font-family: "Manrope", sans-serif;
             font-size: clamp(32px, 4vw, 43px);
             font-weight: 800;
-            letter-spacing: -1.6px;
-            overflow-wrap: anywhere;
         }
 
         .result-category {
@@ -652,15 +557,12 @@
             font-weight: 700;
         }
 
-        .result-bottom {
-            padding: 18px 23px 21px;
-        }
+        .result-bottom { padding: 18px 23px 21px; }
 
         .result-message {
             color: #536f65;
             font-size: 12px;
             line-height: 1.8;
-            overflow-wrap: anywhere;
         }
 
         .result-disclaimer {
@@ -670,15 +572,10 @@
             line-height: 1.7;
         }
 
-        /* Info sidebar */
+        /* Information panel */
 
-        .info-panel {
-            padding: 26px;
-        }
-
-        .info-panel h3 {
-            font-size: 19px;
-        }
+        .info-panel { padding: 26px; }
+        .info-panel h3 { font-size: 19px; }
 
         .info-intro {
             margin-top: 9px;
@@ -761,27 +658,40 @@
 
         .footer-inner {
             display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 15px;
+            text-align: center;
+        }
+
+        .footer-center { width: 100%; }
+
+        .developer-credit {
+            margin: 0 0 14px;
+            color: #87CEEB;
+            font-size: 14px;
+            font-style: italic;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            text-align: center;
         }
 
         .footer-brand {
             font-family: "Manrope", sans-serif;
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 800;
         }
 
         .footer-text {
-            margin-top: 4px;
+            margin-top: 5px;
             color: var(--muted);
-            font-size: 11px;
+            font-size: 12px;
         }
 
         .footer-right {
+            margin-top: 9px;
             color: var(--muted);
             font-size: 11px;
+            line-height: 1.8;
         }
 
         /* Snow effect */
@@ -805,12 +715,8 @@
         }
 
         @keyframes snowfall {
-            0% {
-                transform: translate3d(0, -5vh, 0) rotate(0deg);
-            }
-            100% {
-                transform: translate3d(30px, 110vh, 0) rotate(360deg);
-            }
+            0% { transform: translate3d(0, -5vh, 0) rotate(0deg); }
+            100% { transform: translate3d(30px, 110vh, 0) rotate(360deg); }
         }
 
         /* Tablet */
@@ -821,63 +727,29 @@
                 gap: 25px;
             }
 
-            .hero h1 {
-                font-size: clamp(36px, 5.5vw, 53px);
-            }
+            .hero h1 { font-size: clamp(36px, 5.5vw, 53px); }
+            .hero-visual { min-height: 280px; }
+            .ice-orbit { width: 280px; }
+            .hero-snowflake { font-size: 95px; }
 
-            .hero-visual {
-                min-height: 280px;
-            }
-
-            .ice-orbit {
-                width: 280px;
-            }
-
-            .hero-snowflake {
-                font-size: 95px;
-            }
-
-            .floating-card-top {
-                right: -2px;
-            }
-
-            .prediction-layout {
-                grid-template-columns: minmax(0, 1fr);
-            }
-
-            .info-panel {
-                padding: 27px;
-            }
+            .prediction-layout { grid-template-columns: 1fr; }
 
             .steps {
                 grid-template-columns: repeat(3, minmax(0, 1fr));
                 gap: 16px;
             }
 
-            .step {
-                flex-direction: column;
-            }
+            .step { flex-direction: column; }
         }
 
         /* Mobile */
 
         @media (max-width: 600px) {
-            html {
-                scroll-padding-top: 75px;
-            }
+            html { scroll-padding-top: 75px; }
+            .container { width: calc(100% - 30px); }
 
-            .container {
-                width: calc(100% - 30px);
-            }
-
-            .nav-inner {
-                min-height: 67px;
-                gap: 10px;
-            }
-
-            .brand {
-                gap: 8px;
-            }
+            .nav-inner { min-height: 67px; gap: 10px; }
+            .brand { gap: 8px; }
 
             .brand-icon {
                 width: 37px;
@@ -886,20 +758,14 @@
                 font-size: 20px;
             }
 
-            .brand-name {
-                font-size: 16px;
-            }
+            .brand-name { font-size: 16px; }
+            .brand-subtitle { font-size: 9px; }
+            .nav-links { gap: 13px; }
+            .nav-links a { font-size: 11px; }
 
-            .brand-subtitle {
-                font-size: 9px;
-            }
-
-            .nav-links {
-                gap: 13px;
-            }
-
-            .nav-links a {
-                font-size: 11px;
+            .nav-links a[href="#overview"],
+            .nav-links a[href="#analytics"] {
+                display: none;
             }
 
             .nav-links a.nav-cta {
@@ -907,19 +773,8 @@
                 border-radius: 10px;
             }
 
-            .nav-links a[href="#overview"],
-            .nav-links a[href="#analytics"] {
-                display: none;
-            }
-
-            .hero {
-                padding: 47px 0 38px;
-            }
-
-            .hero-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
+            .hero { padding: 47px 0 38px; }
+            .hero-grid { grid-template-columns: 1fr; gap: 15px; }
 
             .hero h1 {
                 margin-top: 19px;
@@ -939,10 +794,7 @@
                 letter-spacing: 0.9px;
             }
 
-            .hero-actions {
-                gap: 9px;
-                margin-top: 22px;
-            }
+            .hero-actions { gap: 9px; margin-top: 22px; }
 
             .button {
                 min-height: 45px;
@@ -950,180 +802,56 @@
                 font-size: 12px;
             }
 
-            .hero-note {
-                font-size: 10px;
-                line-height: 1.7;
-            }
-
-            .hero-visual {
-                min-height: 245px;
-                margin-top: 2px;
-            }
-
-            .ice-orbit {
-                width: 235px;
-            }
-
-            .ice-orbit::before {
-                inset: 19px;
-            }
-
-            .ice-orbit::after {
-                inset: 41px;
-            }
-
-            .hero-snowflake {
-                font-size: 78px;
-            }
+            .hero-note { font-size: 10px; line-height: 1.7; }
+            .hero-visual { min-height: 245px; margin-top: 2px; }
+            .ice-orbit { width: 235px; }
+            .ice-orbit::before { inset: 19px; }
+            .ice-orbit::after { inset: 41px; }
+            .hero-snowflake { font-size: 78px; }
 
             .floating-card {
                 padding: 11px 12px;
                 border-radius: 12px;
             }
 
-            .floating-card-top {
-                top: 16px;
-                right: 0;
-            }
+            .floating-card-top { top: 16px; right: 0; }
+            .floating-card-bottom { bottom: 11px; left: 0; }
+            .floating-value { font-size: 17px; }
+            .floating-label, .floating-caption { font-size: 9px; }
 
-            .floating-card-bottom {
-                bottom: 11px;
-                left: 0;
-            }
+            .overview { padding: 39px 0 35px; }
+            .section-heading { margin-bottom: 21px; }
+            .section-heading h2 { font-size: 27px; }
+            .section-heading p { font-size: 12px; }
 
-            .floating-value {
-                font-size: 17px;
-            }
+            .feature-grid { grid-template-columns: 1fr; gap: 12px; }
+            .feature-card { padding: 20px; }
+            .feature-card h3 { margin-top: 12px; font-size: 15px; }
+            .feature-card p { font-size: 12px; }
 
-            .floating-label,
-            .floating-caption {
-                font-size: 9px;
-            }
-
-            .overview {
-                padding: 39px 0 22px;
-            }
-
-            .section-heading {
-                margin-bottom: 21px;
-            }
-
-            .section-heading h2 {
-                font-size: 27px;
-            }
-
-            .section-heading p {
-                font-size: 12px;
-            }
-
-            .feature-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-
-            .feature-card {
-                padding: 20px;
-            }
-
-            .feature-card h3 {
-                margin-top: 12px;
-                font-size: 15px;
-            }
-
-            .feature-card p {
-                font-size: 12px;
-            }
-
-            .prediction-section {
-                padding: 43px 0;
-            }
-
-            .prediction-layout {
-                gap: 18px;
-            }
-
-            .panel {
-                border-radius: 17px;
-            }
-
-            .panel-header {
-                padding: 21px 18px 17px;
-            }
-
-            .panel-header h2 {
-                font-size: 20px;
-            }
-
-            .panel-header p {
-                font-size: 12px;
-            }
-
-            .panel-body {
-                padding: 21px 18px;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-                gap: 17px;
-            }
-
-            .form-group.full-width {
-                grid-column: auto;
-            }
-
-            .form-control {
-                min-height: 48px;
-                font-size: 14px;
-            }
-
-            .form-group label {
-                font-size: 12px;
-            }
-
-            .form-actions {
-                margin-top: 22px;
-            }
-
-            .result-top {
-                padding: 18px;
-            }
-
-            .result-time {
-                font-size: 35px;
-            }
-
-            .result-bottom {
-                padding: 17px 18px;
-            }
-
-            .info-panel {
-                padding: 21px 18px;
-            }
-
-            .steps {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .step {
-                flex-direction: row;
-            }
-
-            .footer-inner {
-                align-items: flex-start;
-                flex-direction: column;
-                gap: 9px;
-            }
-
-            .footer-right {
-                line-height: 1.7;
-            }
+            .prediction-section { padding: 43px 0; }
+            .prediction-layout { gap: 18px; }
+            .panel { border-radius: 17px; }
+            .panel-header { padding: 21px 18px 17px; }
+            .panel-header h2 { font-size: 20px; }
+            .panel-header p { font-size: 12px; }
+            .panel-body { padding: 21px 18px; }
+            .form-grid { grid-template-columns: 1fr; gap: 17px; }
+            .form-group.full-width { grid-column: auto; }
+            .form-control { min-height: 48px; font-size: 14px; }
+            .form-actions { margin-top: 22px; }
+            .result-top { padding: 18px; }
+            .result-time { font-size: 35px; }
+            .result-bottom { padding: 17px 18px; }
+            .info-panel { padding: 21px 18px; }
+            .steps { grid-template-columns: 1fr; gap: 20px; }
+            .step { flex-direction: row; }
+            .footer { padding: 25px 0; }
+            .developer-credit { font-size: 13px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
+            *, *::before, *::after {
                 scroll-behavior: auto !important;
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
@@ -1139,10 +867,10 @@
     <!-- Navigation -->
     <header class="navbar">
         <div class="container nav-inner">
-            <a class="brand" href="#home" aria-label="QueueWise home">
+            <a class="brand" href="#home" aria-label="SnowQueue home">
                 <span class="brand-icon" aria-hidden="true">❄</span>
                 <span>
-                    <span class="brand-name">QueueWise</span>
+                    <span class="brand-name">SnowQueue</span>
                     <span class="brand-subtitle">Snow Fantasy · HiLITE Mall</span>
                 </span>
             </a>
@@ -1173,7 +901,7 @@
 
                     <p class="hero-description">
                         Discover estimated waiting times for rides at Snow Fantasy,
-                        HiLITE Mall, Kozhikode. QueueWise uses machine learning
+                        HiLITE Mall, Kozhikode. SnowQueue uses machine learning
                         to turn queue and ride information into a simple estimate
                         to help you plan your visit.
                     </p>
@@ -1183,7 +911,7 @@
                             Estimate waiting time <span aria-hidden="true">→</span>
                         </a>
                         <a href="#overview" class="button button-secondary">
-                            Explore QueueWise
+                            Explore SnowQueue
                         </a>
                     </div>
 
@@ -1219,7 +947,7 @@
                     <span class="section-kicker">A better way to plan</span>
                     <h2>Meet your queue companion</h2>
                     <p>
-                        QueueWise is an educational machine learning project designed
+                        SnowQueue is an educational machine learning project designed
                         to estimate ride waiting times from selected conditions.
                     </p>
                 </div>
@@ -1271,9 +999,7 @@
                     <section class="panel" aria-labelledby="form-title">
                         <div class="panel-header">
                             <h2 id="form-title">Ride details</h2>
-                            <p>
-                                Enter the ride and queue conditions for your prediction.
-                            </p>
+                            <p>Enter the ride and queue conditions for your prediction.</p>
                         </div>
 
                         <div class="panel-body">
@@ -1291,12 +1017,7 @@
                                         <label for="ride-name">
                                             Ride name <span class="required">*</span>
                                         </label>
-                                        <select
-                                            id="ride-name"
-                                            name="ride_name"
-                                            class="form-control"
-                                            required
-                                        >
+                                        <select id="ride-name" name="ride_name" class="form-control" required>
                                             <option value="">Select a ride</option>
                                             <option value="Snow Slide">Snow Slide</option>
                                             <option value="Ice Bumper Cars">Ice Bumper Cars</option>
@@ -1311,15 +1032,8 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="hour">
-                                            Visit hour <span class="required">*</span>
-                                        </label>
-                                        <select
-                                            id="hour"
-                                            name="hour"
-                                            class="form-control"
-                                            required
-                                        >
+                                        <label for="hour">Visit hour <span class="required">*</span></label>
+                                        <select id="hour" name="hour" class="form-control" required>
                                             <option value="">Select hour</option>
                                             <option value="10">10:00 AM</option>
                                             <option value="11">11:00 AM</option>
@@ -1337,15 +1051,8 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="day-type">
-                                            Day type <span class="required">*</span>
-                                        </label>
-                                        <select
-                                            id="day-type"
-                                            name="day_type"
-                                            class="form-control"
-                                            required
-                                        >
+                                        <label for="day-type">Day type <span class="required">*</span></label>
+                                        <select id="day-type" name="day_type" class="form-control" required>
                                             <option value="">Select day type</option>
                                             <option value="weekday">Weekday</option>
                                             <option value="weekend">Weekend</option>
@@ -1353,15 +1060,8 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="weather">
-                                            Weather condition <span class="required">*</span>
-                                        </label>
-                                        <select
-                                            id="weather"
-                                            name="weather"
-                                            class="form-control"
-                                            required
-                                        >
+                                        <label for="weather">Weather condition <span class="required">*</span></label>
+                                        <select id="weather" name="weather" class="form-control" required>
                                             <option value="">Select weather</option>
                                             <option value="sunny">Sunny</option>
                                             <option value="cloudy">Cloudy</option>
@@ -1371,103 +1071,45 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="queue-length">
-                                            People in queue <span class="required">*</span>
-                                        </label>
-                                        <input
-                                            type="number"
-                                            id="queue-length"
-                                            name="queue_length"
-                                            class="form-control"
-                                            min="0"
-                                            max="10000"
-                                            step="1"
-                                            placeholder="e.g. 45"
-                                            required
-                                        >
+                                        <label for="queue-length">People in queue <span class="required">*</span></label>
+                                        <input type="number" id="queue-length" name="queue_length"
+                                            class="form-control" min="0" max="10000" step="1"
+                                            placeholder="e.g. 45" required>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="ride-capacity">
-                                            Ride capacity <span class="required">*</span>
-                                        </label>
-                                        <input
-                                            type="number"
-                                            id="ride-capacity"
-                                            name="ride_capacity"
-                                            class="form-control"
-                                            min="1"
-                                            max="1000"
-                                            step="1"
-                                            placeholder="e.g. 8"
-                                            required
-                                        >
-                                        <small class="field-help">
-                                            People served in one ride cycle.
-                                        </small>
+                                        <label for="ride-capacity">Ride capacity <span class="required">*</span></label>
+                                        <input type="number" id="ride-capacity" name="ride_capacity"
+                                            class="form-control" min="1" max="1000" step="1"
+                                            placeholder="e.g. 8" required>
+                                        <small class="field-help">People served in one ride cycle.</small>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="ride-cycle">
-                                            Ride cycle (minutes) <span class="required">*</span>
-                                        </label>
-                                        <input
-                                            type="number"
-                                            id="ride-cycle"
-                                            name="ride_cycle_minutes"
-                                            class="form-control"
-                                            min="0.1"
-                                            max="240"
-                                            step="0.1"
-                                            placeholder="e.g. 5"
-                                            required
-                                        >
+                                        <label for="ride-cycle">Ride cycle (minutes) <span class="required">*</span></label>
+                                        <input type="number" id="ride-cycle" name="ride_cycle_minutes"
+                                            class="form-control" min="0.1" max="240" step="0.1"
+                                            placeholder="e.g. 5" required>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="park-attendance">
-                                            Park attendance <span class="required">*</span>
-                                        </label>
-                                        <input
-                                            type="number"
-                                            id="park-attendance"
-                                            name="park_attendance"
-                                            class="form-control"
-                                            min="0"
-                                            max="1000000"
-                                            step="1"
-                                            placeholder="e.g. 350"
-                                            required
-                                        >
-                                        <small class="field-help">
-                                            Estimated total visitors for the day.
-                                        </small>
+                                        <label for="park-attendance">Park attendance <span class="required">*</span></label>
+                                        <input type="number" id="park-attendance" name="park_attendance"
+                                            class="form-control" min="0" max="1000000" step="1"
+                                            placeholder="e.g. 350" required>
+                                        <small class="field-help">Estimated total visitors for the day.</small>
                                     </div>
 
                                     <div class="form-group full-width">
-                                        <label for="temperature">
-                                            Temperature (°C) <span class="required">*</span>
-                                        </label>
-                                        <input
-                                            type="number"
-                                            id="temperature"
-                                            name="temperature_c"
-                                            class="form-control"
-                                            min="-20"
-                                            max="60"
-                                            step="0.1"
-                                            placeholder="e.g. 8.5"
-                                            required
-                                        >
+                                        <label for="temperature">Temperature (°C) <span class="required">*</span></label>
+                                        <input type="number" id="temperature" name="temperature_c"
+                                            class="form-control" min="-20" max="60" step="0.1"
+                                            placeholder="e.g. 8.5" required>
                                     </div>
                                 </div>
 
                                 <div class="form-actions">
-                                    <button
-                                        type="submit"
-                                        id="predict-button"
-                                        class="button button-primary"
-                                    >
+                                    <button type="submit" id="predict-button" class="button button-primary">
                                         <span aria-hidden="true">❄</span>
                                         Predict waiting time
                                     </button>
@@ -1485,9 +1127,7 @@
                                 <div class="result-top">
                                     <div class="result-label">Estimated waiting time</div>
                                     <div class="result-time" id="wait-time">-- minutes</div>
-                                    <div class="result-category" id="result-category">
-                                        Prediction ready
-                                    </div>
+                                    <div class="result-category" id="result-category">Prediction ready</div>
                                 </div>
 
                                 <div class="result-bottom">
@@ -1506,7 +1146,7 @@
                     <!-- How it works -->
                     <aside class="panel info-panel" id="analytics">
                         <span class="section-kicker">Simple and useful</span>
-                        <h3 style="margin-top: 8px;">How QueueWise works</h3>
+                        <h3 style="margin-top: 8px;">How SnowQueue works</h3>
                         <p class="info-intro">
                             The application combines ride information and queue
                             conditions to generate an estimated waiting time.
@@ -1517,10 +1157,7 @@
                                 <div class="step-number">01</div>
                                 <div>
                                     <h4>Choose your ride</h4>
-                                    <p>
-                                        Select the ride and enter the visit time,
-                                        day type, and weather condition.
-                                    </p>
+                                    <p>Select the ride, visit time, day type, and weather condition.</p>
                                 </div>
                             </div>
 
@@ -1528,10 +1165,7 @@
                                 <div class="step-number">02</div>
                                 <div>
                                     <h4>Enter queue details</h4>
-                                    <p>
-                                        Provide the number of people waiting, ride
-                                        capacity, cycle duration, and other inputs.
-                                    </p>
+                                    <p>Provide the queue size, ride capacity, cycle duration, and other inputs.</p>
                                 </div>
                             </div>
 
@@ -1539,10 +1173,7 @@
                                 <div class="step-number">03</div>
                                 <div>
                                     <h4>View the estimate</h4>
-                                    <p>
-                                        The trained machine learning model predicts
-                                        a waiting time based on its training data.
-                                    </p>
+                                    <p>The trained machine learning model predicts waiting time from its training data.</p>
                                 </div>
                             </div>
                         </div>
@@ -1552,7 +1183,7 @@
                         <div class="disclaimer-card">
                             <strong>ⓘ About these predictions</strong>
                             <p>
-                                QueueWise is a student project prototype. It does not
+                                SnowQueue is a student project prototype. It does not
                                 measure the actual live queue or receive live visitor
                                 counts. Prediction quality depends on the training
                                 dataset and model.
@@ -1567,27 +1198,26 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container footer-inner">
-            
-            <div>
-                <div class="footer-brand">❄ QueueWise</div>
+            <div class="footer-center">
+                <p class="developer-credit">
+                    Designed &amp; Developed by Ektha M
+                </p>
+
+                <div class="footer-brand">❄ SnowQueue</div>
+
                 <p class="footer-text">
                     A machine learning queue estimation project.
                 </p>
-            </div>
 
-            <p class="footer-right">
-                Snow Fantasy · HiLITE Mall · Kozhikode, Kerala<br>
-                Educational prototype · Estimates only
-            </p>
+                <p class="footer-right">
+                    Snow Fantasy · HiLITE Mall · Kozhikode, Kerala<br>
+                    Educational prototype · Estimates only
+                </p>
+            </div>
         </div>
     </footer>
 
-    <!-- Load exactly one frontend script -->
+    <!-- Keep the existing frontend JavaScript -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-    
-<footer class="site-footer">
-    <p>Designed &amp; Developed by <span>Ektha M</span></p>
-</footer>
-
 </body>
 </html>
